@@ -45,6 +45,11 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    redirect: ({url, baseUrl}) => {
+      return url.startsWith(baseUrl)
+        ? url
+        : `${baseUrl}/api/auth/callback/github`;
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
